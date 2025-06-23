@@ -25,6 +25,13 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
     setIsLoading(true);
     setError('');
 
+    // Client-side validation
+    if (formData.password.length < 6) {
+      setError('รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร');
+      setIsLoading(false);
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('รหัสผ่านไม่ตรงกัน');
       setIsLoading(false);
@@ -117,6 +124,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
                   onChange={(e) => handleInputChange('password', e.target.value)}
                   className="w-full px-3 py-2 pr-10 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                   required
+                  minLength={6}
                 />
                 <button
                   type="button"
@@ -126,6 +134,9 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร
+              </p>
             </div>
 
             <div>
@@ -139,6 +150,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) => {
                   onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                   className="w-full px-3 py-2 pr-10 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                   required
+                  minLength={6}
                 />
                 <button
                   type="button"
